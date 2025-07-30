@@ -1,4 +1,4 @@
-{ ... }:
+{ config, lib, ... }:
 
 {
   disko.devices = {
@@ -10,7 +10,7 @@
         partitions = {
           boot = {
             size = "512MiB";
-            type = "EF00";
+            type = "EF00"; # EFI System Partition
             content = {
               type = "filesystem";
               format = "vfat";
@@ -20,10 +20,9 @@
           root = {
             size = "100%";
             content = {
-              type = "filesystem";
-              format = "btrfs";
+              type = "btrfs";
               mountpoint = "/";
-              extraArgs = [ "-f" ]; # 强制格式化
+              extraArgs = [ "-f" ];
               subvolumes = {
                 "@root" = {
                   mountpoint = "/";
